@@ -1,6 +1,5 @@
 <script lang="ts">
-	import toastr from 'toastr';
-	import 'toastr/build/toastr.css';
+	import rq from '$lib/rq/rq';
 </script>
 
-<button class="btn btn-primary btn-wide" onclick={() => toastr.info('안녕')}>버튼</button>
+<button class="btn btn-primary btn-wide" onclick={() => rq.msgInfo('안녕')}>버튼</button>
