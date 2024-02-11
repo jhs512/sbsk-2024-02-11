@@ -10,9 +10,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
+    private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -63,6 +66,11 @@ public class SecurityConfig {
                                         .logoutRequestMatcher(
                                                 new AntPathRequestMatcher("/member/logout")
                                         )
+                )
+                .oauth2Login(
+                        oauth2Login ->
+                                oauth2Login
+                                        .successHandler(customAuthenticationSuccessHandler)
                 );
 
         return http.build();
