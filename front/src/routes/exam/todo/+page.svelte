@@ -1,5 +1,5 @@
 <script lang="ts">
-	import TodoList from '$lib/business/todo/TodoList.svelte';
+	import TodoAddAndList from '$lib/business/todo/TodoAddAndList.svelte';
 </script>
 
-<TodoList />
+<TodoAddAndList />
