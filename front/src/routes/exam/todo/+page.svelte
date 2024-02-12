@@ -1,9 +1,15 @@
 <script lang="ts">
-	function makeTodo(id: number, content: string, completed: boolean) {
+	interface Todo {
+		id: number;
+		content: string;
+		completed: boolean;
+	}
+
+	function makeTodo(id: number, content: string, completed: boolean): Todo {
 		return { id, content, completed };
 	}
 
-	const todos = $state([
+	const todos: Todo[] = $state([
 		makeTodo(1, '할일 1', false),
 		makeTodo(2, '할일 2', false),
 		makeTodo(3, '할일 3', false)
@@ -32,24 +38,20 @@
 	<input type="submit" value="추가" class="btn btn-primary" />
 </form>
 
-<h2>할일 목록</h2>
-<ul>
-	{#each todos as todo (todo.id)}
-		<li>
-			{todo.content}
-			<input type="checkbox" class="checkbox" bind:checked={todo.completed} />
-		</li>
-	{/each}
-</ul>
+{#snippet TodoList(todos)}
+	<h2>할일 목록</h2>
+	<ul class="grid gap-2">
+		{#each todos as todo (todo.id)}
+			<li class="flex items-center gap-2">
+				{todo.content}
+				<input type="checkbox" class="checkbox" bind:checked={todo.completed} />
+				<button class="btn btn-outline btn-sm">수정</button>
+				<button class="btn btn-outline btn-sm">삭제</button>
+			</li>
+		{/each}
+	</ul>
+{/snippet}
 
+{@render TodoList(todos)}
 <hr />
-
-<h2>할일 목록</h2>
-<ul>
-	{#each todos as todo (todo.id)}
-		<li>
-			{todo.content}
-			<input type="checkbox" class="checkbox" bind:checked={todo.completed} />
-		</li>
-	{/each}
-</ul>
+{@render TodoList(todos)}
